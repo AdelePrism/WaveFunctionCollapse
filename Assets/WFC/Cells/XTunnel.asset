@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7da11ca1c893e1439ddb70902a5f895, type: 3}
+  m_Name: XTunnel
+  m_EditorClassIdentifier: 
+  mesh: {fileID: -462981019419857548, guid: 5949e42f6d2074f4ab68cc26dcb4cbca, type: 3}
+  canMirror: 0
+  canRotate: 0
+  ports:
+  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
+  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
+  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
+  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}

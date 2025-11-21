@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7da11ca1c893e1439ddb70902a5f895, type: 3}
+  m_Name: DeadTunnel
+  m_EditorClassIdentifier: 
+  mesh: {fileID: -462981019419857548, guid: e40c4dd3b1b32a34e8d0225e00de3774, type: 3}
+  canMirror: 0
+  canRotate: 1
+  ports:
+  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
+  - {fileID: 11400000, guid: 974ee05371c88db47a5341b0e06861a9, type: 2}
+  - {fileID: 11400000, guid: 974ee05371c88db47a5341b0e06861a9, type: 2}
+  - {fileID: 11400000, guid: 974ee05371c88db47a5341b0e06861a9, type: 2}
