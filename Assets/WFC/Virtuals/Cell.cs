@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using System;
 
+[Serializable]
 public class CellInfo {
 
     public Cell cell;
@@ -18,11 +21,11 @@ public class CellInfo {
     }
 
     public Mesh GetMesh() {
-
-        Mesh mesh = cell.GetMesh();
+        
+        Mesh mesh = DeepCopy();
         Matrix4x4 mirMatrix = Matrix4x4.Scale(mir ? new Vector3(-1, 1, 1) : Vector3.one);
-        Matrix4x4 rotMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, rot * 90, 0));
-        Matrix4x4 finalMatrix = rotMatrix * mirMatrix; //Ensure its done in the correct order
+        Matrix4x4 rotMatrix = Matrix4x4.Rotate(Quaternion.Euler(-90, 180 + rot * 90, 0));
+        Matrix4x4 finalMatrix = mirMatrix * rotMatrix; //Ensure its done in the correct order
 
         Vector3[] verts = mesh.vertices;
         for (int i = 0; i < verts.Length;  i++) {
@@ -51,6 +54,31 @@ public class CellInfo {
         return mesh;
     }
 
+    private Mesh DeepCopy() {
+        Mesh mesh = new Mesh();
+        Mesh src = cell.GetMesh();
+
+        mesh.vertices = src.vertices;
+        mesh.normals = src.normals;
+        mesh.tangents = src.tangents;
+        mesh.colors = src.colors;
+        mesh.colors32 = src.colors32;
+        mesh.uv = src.uv;
+        mesh.uv2 = src.uv2;
+        mesh.uv3 = src.uv3;
+        mesh.uv4 = src.uv4;
+        mesh.triangles = src.triangles;
+
+        mesh.subMeshCount = src.subMeshCount;
+        for (int i = 0; i < src.subMeshCount; i++)
+            mesh.SetTriangles(src.GetTriangles(i), i);
+
+        mesh.RecalculateBounds();
+
+
+        return mesh;
+    }
+
 }
 
 [CreateAssetMenu(fileName = "Cell", menuName = "Scriptable Objects/Cell")]
@@ -68,9 +96,10 @@ public class Cell : ScriptableObject
         if (mirrored) {
             if (direction == 1 || direction == 3) {
                 direction += 2;
+                direction = direction % 4;
             }
         }
-        int rotatedPortID = (direction + rotation) % 4;
+        int rotatedPortID = (direction - rotation + 4) % 4;
 
         return mirrored ? ports[rotatedPortID].Mirror() : ports[rotatedPortID];
     }

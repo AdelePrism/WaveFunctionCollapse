@@ -16,7 +16,7 @@ MonoBehaviour:
   canMirror: 0
   canRotate: 1
   ports:
-  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
-  - {fileID: 11400000, guid: 974ee05371c88db47a5341b0e06861a9, type: 2}
   - {fileID: 11400000, guid: 974ee05371c88db47a5341b0e06861a9, type: 2}
   - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
+  - {fileID: 11400000, guid: 508c4b5068d30334b8ffc41ee7de0800, type: 2}
+  - {fileID: 11400000, guid: 974ee05371c88db47a5341b0e06861a9, type: 2}

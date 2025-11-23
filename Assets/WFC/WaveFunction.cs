@@ -24,29 +24,50 @@ public class WaveFunction
 
     }
 
+    public void NewMap(Map m) {
+        //if (map != null) {
+        map = m;
+        //}
+
+        RefreshCells();
+
+        map.NewMap(allTrueCells);
+
+    }
+
     [ContextMenu("Generate WFC")]
-    public Mesh GenerateWFC() {
-        NewMap();
-        
+    public Mesh GenerateWFC(Map map) {
+        //Debug.Log("Started Generating WFC...");
+        NewMap(map);
+        int test = 0;
         while (true) {
+            if (test == 3) {
+                test = 0;
+            }
+            //Debug.Log("New Iteration started...");
             queue = new List<Vector2Int>(); //Queue for what tiles to check
+            queueHash = new HashSet<Vector2Int>(); //Queue for what tiles to check
 
             Vector2Int minEntropyCoords = map.LeastEntropy(); 
-            if (minEntropyCoords == Vector2Int.left) { //Vector2Int.left means that all cells are collapsed, and map generation cannot continue
+            if (minEntropyCoords == Vector2Int.left) { //Vector2Int.left means that all cells are collapsed, and map generation cannot continue  || map.slots[minEntropyCoords.x, minEntropyCoords.y].states.Count <= 0
                 break;
             }
             CellInfo currentCellInfo = map.CollapseCell(minEntropyCoords);
             queue.Add(minEntropyCoords);
             queueHash.Add(minEntropyCoords);
 
+            //Debug.Log("Collapsed " + minEntropyCoords + " into " + currentCellInfo.cell.name + " with rotation " + currentCellInfo.rot);
+
             while (queue.Count > 0) {
                 CheckEdges(queue[0]);
                 queueHash.Remove(queue[0]);
                 queue.RemoveAt(0);
             }
+            test++;
 
-        }  
+        }
 
+        //Debug.Log("Placing Map...");
         return map.PlaceMap();
     }
 
@@ -93,14 +114,13 @@ public class WaveFunction
         //Calculates the opposite direction for the target cell to find its Port
         int targetDirComponentX = (-targetOffset.x + targetOffset.x * 2) + (Math.Abs(targetOffset.x) * 2); //An offset.x of 0 returns 0, -1 returns 1, 1 returns 3
         int targetDirComponentY = -targetOffset.y + Math.Abs(targetOffset.y); //An offset.y of 1 and 0 returns 0, and -1 returns 2
-        int targetDir = directionComponentX + directionComponentY;
+        int targetDir = targetDirComponentX + targetDirComponentY;
 
         Vector2Int targetCoords = coords + targetOffset; //Target is the cell adjacent to the current, and is the one being checked
 
         for (int i = 0; i < map.slots[coords.x, coords.y].states.Count; i++) { //For each state in the currently viewed cell
 
             CellInfo self = map.slots[coords.x, coords.y].states[i]; //Self is the state of the current cell
-
             for (int j = 0; j < map.slots[targetCoords.x, targetCoords.y].states.Count; j++) { //For each state in the target cell
                 CellInfo target = map.slots[targetCoords.x, targetCoords.y].states[j];
                 if (!self.GetPort(dir).ComparePort(target.GetPort(targetDir))) { //If the ports are not compatible
@@ -117,11 +137,16 @@ public class WaveFunction
             //that are entirely impossible to occur due to Port Compatibility, and therefore should be removed from the target's available states
         }
 
+        if (map.slots[targetCoords.x, targetCoords.y].states.Count - impossibleCells.Count <= 0) {
+            Debug.Log("What the helly");
+        }
+
+        // && !map.slots[targetCoords.x, targetCoords.y].collapsed
         if (impossibleCells.Count > 0) {
             bool hasRemovedState = false;
-            for (int i = map.slots[targetCoords.x, targetCoords.y].states.Count; i >= 0; i--) {
-                if (impossibleCells.Contains(map.slots[targetCoords.x, targetCoords.y].states[i])) { 
-                    map.slots[targetCoords.x, targetCoords.y].states.RemoveAt(i); //Remove all states in the target cell that is in the hashSet
+            for (int i = map.slots[targetCoords.x, targetCoords.y].states.Count; i > 0; i--) {
+                if (impossibleCells.Contains(map.slots[targetCoords.x, targetCoords.y].states[i - 1])) { 
+                    map.slots[targetCoords.x, targetCoords.y].states.RemoveAt(i - 1); //Remove all states in the target cell that is in the hashSet
                     hasRemovedState = true;
                 }
             }
@@ -130,10 +155,14 @@ public class WaveFunction
                 queueHash.Add(targetCoords);
             }
         }
+
+
     }
 
 
     public void RefreshCells() {
+
+        allTrueCells = new List<CellInfo>();
 
         for (int i = 0; i < allCells.Count; i++) {
 
