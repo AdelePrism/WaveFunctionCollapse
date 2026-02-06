@@ -9,8 +9,8 @@ public class WFCManager : MonoBehaviour
     MeshFilter meshFilter;
 
 
-    [SerializeField] CellInfo leftCell;
-    [SerializeField] CellInfo rightCell;
+    [SerializeField] CellInfo quickComparisonLeftCell;
+    [SerializeField] CellInfo quickComparisonRightCell;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +26,7 @@ public class WFCManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.G)) {
-            Debug.Log(leftCell.GetPort(1).ComparePort(rightCell.GetPort(3)));
+            Debug.Log(quickComparisonLeftCell.GetPort(1).ComparePort(quickComparisonRightCell.GetPort(3)));
         }
     }
 }
