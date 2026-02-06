@@ -137,9 +137,6 @@ public class WaveFunction
             //that are entirely impossible to occur due to Port Compatibility, and therefore should be removed from the target's available states
         }
 
-        if (map.slots[targetCoords.x, targetCoords.y].states.Count - impossibleCells.Count <= 0) {
-            Debug.Log("What the helly");
-        }
 
         // && !map.slots[targetCoords.x, targetCoords.y].collapsed
         if (impossibleCells.Count > 0) {
