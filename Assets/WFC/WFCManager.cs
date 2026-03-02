@@ -7,6 +7,7 @@ public class WFCManager : MonoBehaviour
     [SerializeField] Map map;
     
     MeshFilter meshFilter;
+    ConstraintsActive activeConstraints;
 
 
     [SerializeField] CellInfo quickComparisonLeftCell;
@@ -16,17 +17,23 @@ public class WFCManager : MonoBehaviour
     void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
+        activeConstraints = new ConstraintsActive();
+        activeConstraints.coordinateConstraint = GetComponent<CoordinateConstraint>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            meshFilter.sharedMesh = waveFunction.GenerateWFC(map);
+            meshFilter.sharedMesh = waveFunction.GenerateWFC(map, activeConstraints);
         }
 
         if (Input.GetKeyDown(KeyCode.G)) {
             Debug.Log(quickComparisonLeftCell.GetPort(1).ComparePort(quickComparisonRightCell.GetPort(3)));
         }
     }
+}
+
+public class ConstraintsActive {
+    public CoordinateConstraint coordinateConstraint;
 }

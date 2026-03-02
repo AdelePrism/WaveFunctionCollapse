@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using NUnit.Framework;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class WaveFunction
@@ -13,6 +14,7 @@ public class WaveFunction
     List<Vector2Int> queue;
     HashSet<Vector2Int> queueHash;
 
+    CoordinateConstraint coordinateConstraint;
     public void NewMap() {
         if (map != null) {
             map = new Map();
@@ -36,10 +38,27 @@ public class WaveFunction
     }
 
     [ContextMenu("Generate WFC")]
-    public Mesh GenerateWFC(Map map) {
+    public Mesh GenerateWFC(Map map, ConstraintsActive allConstraints) {
         //Debug.Log("Started Generating WFC...");
         NewMap(map);
         int test = 0;
+
+        queue = new List<Vector2Int>(); //Queue for what tiles to check
+        queueHash = new HashSet<Vector2Int>(); //Queue for what tiles to check
+
+        if (allConstraints.coordinateConstraint != null) {
+            HashSet<ListStruct> denyList = allConstraints.coordinateConstraint.Run(map);
+            PruneMap(denyList);
+        }
+
+        while (queue.Count > 0) {
+            CheckEdges(queue[0]);
+            queueHash.Remove(queue[0]);
+            queue.RemoveAt(0);
+        }
+
+
+        //The main WFC Loop
         while (true) {
             if (test == 3) {
                 test = 0;
@@ -156,6 +175,23 @@ public class WaveFunction
 
     }
 
+    private void PruneMap(HashSet<ListStruct> denyList) {
+        foreach(ListStruct deny in denyList) {
+            QuantumCell temp = new QuantumCell(map.slots[deny.x, deny.y].states);
+            for (int i = 0; i < map.slots[deny.x, deny.y].states.Count; i++) {
+                if (map.slots[deny.x, deny.y].states[i].cell == deny.cellinfo.cell) {
+                    map.slots[deny.x, deny.y].states.RemoveAt(i);
+                    i--;
+
+                    Vector2Int coords = new Vector2Int(deny.x, deny.y);
+                    if (!queueHash.Contains(coords)) {
+                        queue.Add(coords);
+                        queueHash.Add(coords);
+                    }
+                }
+            }
+        }
+    }
 
     public void RefreshCells() {
 

@@ -116,6 +116,10 @@ public class Map
     public CellInfo CollapseCell(Vector2Int coords) {
 
         List<CellInfo> allStates = new List<CellInfo>(slots[coords.x, coords.y].states);
+        if (allStates.Count == 0) {
+            Debug.LogError(coords + " has 0 states! Check your constraints.");
+            //return null;
+        }
         slots[coords.x, coords.y].states.Clear();
         int rand = Random.Range(0, allStates.Count);
 
