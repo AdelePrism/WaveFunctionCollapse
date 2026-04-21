@@ -25,12 +25,22 @@ public class WFCManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            meshFilter.sharedMesh = waveFunction.GenerateWFC(map, activeConstraints);
+            GenerateMapWFC();
+            //meshFilter.sharedMesh = waveFunction.GenerateWFC(map, activeConstraints);
         }
 
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKeyDown(KeyCode.K)) {
             Debug.Log(quickComparisonLeftCell.GetPort(1).ComparePort(quickComparisonRightCell.GetPort(3)));
         }
+    }
+
+    [ContextMenu("Generate WFC")]
+    void GenerateMapWFC() {
+        meshFilter = GetComponent<MeshFilter>();
+        activeConstraints = new ConstraintsActive();
+        activeConstraints.coordinateConstraint = GetComponent<CoordinateConstraint>();
+
+        meshFilter.sharedMesh = waveFunction.GenerateWFC(map, activeConstraints);
     }
 }
 

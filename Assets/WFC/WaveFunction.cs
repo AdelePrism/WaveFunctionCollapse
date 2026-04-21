@@ -46,7 +46,7 @@ public class WaveFunction
         queue = new List<Vector2Int>(); //Queue for what tiles to check
         queueHash = new HashSet<Vector2Int>(); //Queue for what tiles to check
 
-        if (allConstraints.coordinateConstraint != null) {
+        if (allConstraints.coordinateConstraint != null && allConstraints.coordinateConstraint.enabled) {
             HashSet<ListStruct> denyList = allConstraints.coordinateConstraint.Run(map);
             PruneMap(denyList);
         }

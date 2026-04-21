@@ -120,10 +120,36 @@ public class Map
             Debug.LogError(coords + " has 0 states! Check your constraints.");
             //return null;
         }
-        slots[coords.x, coords.y].states.Clear();
-        int rand = Random.Range(0, allStates.Count);
 
-        slots[coords.x, coords.y].states.Add(allStates[rand]);
+        int chosenStateIndex = 0;
+
+        //Count together all weights in order so that it can be recounted later
+        float totalWeight = 0;
+        for (int i = 0; i < allStates.Count; i++) {
+            totalWeight += allStates[i].cell.weight;
+        }
+
+        //Pick a random number within the range of all weights
+        float randomWeightIndex = Random.Range(0, totalWeight);
+
+        //Then find out where in the list of weights (in order) the random number is, giving us the randomly picked cell while keeping in mind weightings
+        float countingWeight = 0;
+        for (int i = 0; i < allStates.Count; i++) {
+            countingWeight += allStates[i].cell.weight;
+            if (randomWeightIndex < countingWeight) {
+                chosenStateIndex = i;
+                break;
+            }
+        }
+
+        if (countingWeight == 0) {
+            Debug.Log("0 Hit");
+        }
+
+        slots[coords.x, coords.y].states.Clear();
+        //int rand = Random.Range(0, allStates.Count);
+
+        slots[coords.x, coords.y].states.Add(allStates[chosenStateIndex]);
         slots[coords.x, coords.y].collapsed = true;
 
         return slots[coords.x, coords.y].states[0];

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ToonMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 568953c1756144c468f57c56b88d5f6f, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: 568953c1756144c468f57c56b88d5f6f, type: 3}
+  m_ModifiedSerializedProperties: 30
+  m_ValidKeywords:
+  - MAIN_LIGHT_CALCULATE_SHADOWS
+  - _MAIN_LIGHT_SHADOWS_CASCADE
+  - _SHADOWS_SOFT
+  m_InvalidKeywords: []
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2D_ca80f99831cb4e9bb7fbf94c52643dbc_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: b893db26b4993b643922b5660ae61026, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - MAIN_LIGHT_CALCULATE_SHADOWS: 1
+    - _AdditionalLight: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _DarkLimit: 0.5
+    - _Darkener: 20
+    - _MAIN_LIGHT_SHADOWS_CASCADE: 1
+    - _QueueControl: 0
+    - _SHADOWS_SOFT: 1
+    - _Shades: 2
+    m_Colors:
+    - _BaseColor: {r: 0.14117645, g: 0.65140736, b: 0.9529412, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &8073695856781129064
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9

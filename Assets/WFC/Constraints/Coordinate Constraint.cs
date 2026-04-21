@@ -124,10 +124,6 @@ public class CoordinateConstraint : MonoBehaviour
     }
 
     private void DenyListAdd(ListStruct cell) {
-        //if (localAllowList.Contains(cell)) {
-        //    //localAllowList.Remove(cell);
-        //    return;
-        //}
         if (!localAllowList.Contains(cell) && !globalAllowList.Contains(cell) && !localDenyList.Contains(cell)) {
             localDenyList.Add(cell);
         }
@@ -183,5 +179,16 @@ public class ListStruct {
         cellinfo = cellInput;
         x = xInput;
         y = yInput;
+    }
+
+    public override bool Equals(object obj) {
+        if (obj is not ListStruct other)
+            return false;
+
+        return x == other.x && y == other.y && cellinfo == other.cellinfo;
+    }
+
+    public override int GetHashCode() {
+        return HashCode.Combine(x, y, cellinfo);
     }
 }

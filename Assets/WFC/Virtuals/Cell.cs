@@ -90,6 +90,7 @@ public class Cell : ScriptableObject
 
     [SerializeField] Port[] ports = new Port[4];
 
+    public float weight = 1f;
     public Port GetPort(int direction, int rotation = 0, bool mirrored = false) {
 
 
