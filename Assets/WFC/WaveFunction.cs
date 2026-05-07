@@ -7,12 +7,12 @@ using UnityEngine.UIElements;
 [Serializable]
 public class WaveFunction
 {
-    [SerializeField] List<Cell> allCells;
-    List<CellInfo> allTrueCells;
+    [SerializeField] List<Cell> allCells = new List<Cell>();
+    List<CellInfo> allTrueCells = new List<CellInfo>();
     Map map;
 
-    List<Vector2Int> queue;
-    HashSet<Vector2Int> queueHash;
+    List<Vector2Int> queue = new List<Vector2Int>();
+    HashSet<Vector2Int> queueHash = new HashSet<Vector2Int>();
 
     CoordinateConstraint coordinateConstraint;
     public void NewMap() {

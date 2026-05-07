@@ -18,6 +18,10 @@ public class Port : ScriptableObject
     public List<Port> connections = new List<Port>();
     public HashSet<Port> connectionsHash = new HashSet<Port>();
 
+    private void Awake() {
+        Refresh();
+    }
+
     public bool ComparePort(Port port) {
         return connectionsHash.Contains(port);
         

@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class QuantumCell {
     public bool collapsed = false;
-    public List<CellInfo> states;
+    public List<CellInfo> states = new List<CellInfo>();
 
     public QuantumCell(List<CellInfo> allCells) {
         states = new List<CellInfo>(allCells);
@@ -20,7 +20,7 @@ public class Map
     [SerializeField] public Vector2 size = new Vector2(5, 5);
     Vector3 meshScale;
 
-    public QuantumCell[,] slots;
+    public QuantumCell[,] slots = new QuantumCell[10, 10];
     [SerializeField] CellInfo[] slots2;
     public Map(Map m) {
         x = m.x;

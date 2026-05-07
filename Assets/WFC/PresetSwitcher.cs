@@ -33,6 +33,9 @@ public class PresetSwitcher : MonoBehaviour
             shaderEnabled = !shaderEnabled;
             shaderFeature.rendererFeatures[1].SetActive(shaderEnabled);
         }
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
     }
 
 

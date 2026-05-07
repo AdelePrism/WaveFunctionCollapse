@@ -130,7 +130,7 @@ Material:
     - _Offset: 0
     - _OuterOutlineColor: 0.56
     - _Outline: 1
-    - _OutlineToggle: 0
+    - _OutlineToggle: 1
     - _Parallax: 0.005
     - _PixelHeight: 200
     - _QueueOffset: 0
